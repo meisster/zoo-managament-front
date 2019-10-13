@@ -1,0 +1,55 @@
+//html {
+//  height: 100%;
+//}
+body {
+  background-color: rgba(#303030, 0.95);
+  margin: 0;
+  height: 100%;
+}
+
+.content-wrapper {
+  background-color: #303030;
+  display: flex;
+  flex-flow: column;
+  max-width: 1024px;
+  padding: 2rem 1rem;
+  width: 100%;
+  min-height: 100vh;
+  margin: auto;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+.input-container {
+  display: flex;
+  flex-flow: column;
+}
+.input-container > * {
+  width: 100%;
+}
+.check-database {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//nav-bar:before {
+//  content: "";
+//  background: url(~assets/background.jpeg) no-repeat center center/cover;
+//  background-size: cover;
+//  width: 100%;
+//  position: absolute;
+//  top: 0;
+//  bottom: -130px;
+//  left: 0;
+//  z-index: -1;
+//}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+
