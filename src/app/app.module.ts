@@ -7,18 +7,19 @@ import {HomePageComponent} from './components/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
-  MatButtonModule,
+  MatButtonModule, MatDialogModule,
   MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSidenavModule, MatSortModule, MatTableModule, MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {NavigationBarComponent} from './components/nav-bar.component';
 import {EditDatabaseComponent} from './components/edit-database.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddingComponent} from './components/adding.component';
 import {ModifyComponent} from './components/modify.component';
+import {DialogDetailsComponent} from './components/dialog-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {ModifyComponent} from './components/modify.component';
     NavigationBarComponent,
     EditDatabaseComponent,
     AddingComponent,
-    ModifyComponent
+    ModifyComponent,
+    DialogDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,12 @@ import {ModifyComponent} from './components/modify.component';
     ReactiveFormsModule,
     MatIconModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatTooltipModule
+  ],
+  entryComponents: [
+    DialogDetailsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

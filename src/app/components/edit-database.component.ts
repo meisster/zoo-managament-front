@@ -19,10 +19,9 @@ import {MatTableDataSource} from '@angular/material';
               </mat-tab>
               <mat-tab label="Delete from table"></mat-tab>
               <mat-tab label="Modify table">
-                  <modify [columnKeys]="columnKeys" [dataSource]="tableData"></modify>
+                  <modify [columns]="columnKeys" [dataSource]="tableData"></modify>
               </mat-tab>
               <mat-tab label="Display table"></mat-tab>
-
           </mat-tab-group>
       </div>
   `
@@ -52,23 +51,141 @@ export class EditDatabaseComponent implements OnInit {
           {
             name: 'Slonik',
             species: 'Elephant',
-            roomId: 16
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           },
           {
             name: 'Pieseł',
             species: 'Dog',
-            roomId: 16
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'Pieseł',
+            species: 'Dog',
+            roomId: 16,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           }
         ] : [
           {
             name: 'Pokoj 1',
             surface: 255,
-            price: 50
+            price: 50,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           },
           {
             name: 'Pokoj 2',
             surface: 128,
-            price: 100
+            price: 100,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           }
         ];
       }

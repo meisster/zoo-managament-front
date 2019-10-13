@@ -75,7 +75,6 @@
     "no-output-native": true,
     "no-output-rename": true,
     "no-outputs-metadata-property": true,
-    "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true

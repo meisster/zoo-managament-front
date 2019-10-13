@@ -1,0 +1,14 @@
+.input-container {
+  display: flex;
+  flex-flow: column;
+}
+
+.input-container > * {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+

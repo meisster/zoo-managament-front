@@ -29,6 +29,9 @@ $zoo-managament-front-theme: mat-dark-theme($zoo-managament-front-primary, $zoo-
 /* You can add global styles to this file, and also import other style files */
 @import "styles/app-layout";
 @import "styles/nav-bar.scss";
+@import "styles/modify-component.scss";
+@import "styles/content-wrapper.scss";
+@import "styles/adding-component.scss";
 
 
 html, body { height: 100%; }
