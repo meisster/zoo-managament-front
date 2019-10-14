@@ -51,15 +51,6 @@ export class EditDatabaseComponent implements OnInit {
       (next: string) => {
         this.currentTable = (next);
         this.tableKeys = this.currentTable === 'animals' ? ['name', 'species', 'roomId'] : ['name', 'surface', 'price'];
-        this.tablesData = this.currentTable === 'animals' ? {
-          name: ['Piesel 1', 'Piesel 2'],
-          species: ['Dog', 'Elephant'],
-          roomId: ['15', '16', '17']
-        } : {
-          name: ['Pokoj 1', 'Pokoj 2'],
-          surface: ['100', '200', '300'],
-          price: ['15', '25', '35']
-        };
         this.tableData = this.currentTable === 'animals' ? [
           {
             name: 'Slonik',
@@ -85,10 +76,25 @@ export class EditDatabaseComponent implements OnInit {
             surface: 128,
             price: 100,
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
+          },
+          {
+            name: 'chujdupa 2',
+            surface: 5000000,
+            price: 100,
+            description: 'gowno ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           }
         ];
       }
     );
+    this.tablesData = this.parseData(this.tableData);
+  }
+
+  private parseData(data) {
+    const res: {[key: string]: string[]} = {};
+    Object.keys(data[0]).forEach(key => {
+      res[key] = data.map(el => String(el[key]));
+    });
+    return res;
   }
 
   onSubmit(f: NgForm): void {

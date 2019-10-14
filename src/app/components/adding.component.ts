@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
           <ng-container *ngFor="let column of tableColumnNames[currentTable]; let i = index">
               <mat-form-field color="warn" appearance="outline">
                   <mat-label>{{column}}</mat-label>
-                  <input matInput ngModel required name="{{tableKeys[i]}}"
+                  <input matInput required name="{{tableKeys[i]}}"
                          [formControl]="myGroup.controls[tableKeys[i]]"
                          [formControlName]="tableKeys[i]"
                          [matAutocomplete]="auto">
@@ -29,7 +29,7 @@ import {Observable} from 'rxjs';
 export class AddingComponent implements OnInit {
   @Input() tableColumnNames: { [key: string]: string[] };
   @Input() currentTable: string;
-  @Input() tableKeys: string[];
+  @Input() tableKeys: string[] = [];
   myGroup: FormGroup = new FormGroup({
     none: new FormControl()
   });
