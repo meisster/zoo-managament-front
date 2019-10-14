@@ -7,15 +7,15 @@ import {Observable} from 'rxjs';
   selector: `add-to-table`,
   template: `
       <form class="input-container" [formGroup]="myGroup" (ngSubmit)="onSubmit()">
-          <ng-container *ngFor="let column of tableColumnNames[currentTable]; let key of keys[currentTable]">
+          <ng-container *ngFor="let column of tableColumnNames[currentTable]; let i = index">
               <mat-form-field color="warn" appearance="outline">
                   <mat-label>{{column}}</mat-label>
-                  <input matInput ngModel required name="{{column.toLocaleLowerCase()}}"
-                         [formControl]="myGroup.controls[column.toLocaleLowerCase()]"
-                         [formControlName]="column.toLocaleLowerCase()"
+                  <input matInput ngModel required name="{{tableKeys[i]}}"
+                         [formControl]="myGroup.controls[tableKeys[i]]"
+                         [formControlName]="tableKeys[i]"
                          [matAutocomplete]="auto">
                   <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions[column.toLocaleLowerCase()] | async" [value]="option">
+                      <mat-option *ngFor="let option of filteredOptions[tableKeys[i]] | async" [value]="option">
                           {{option}}
                       </mat-option>
                   </mat-autocomplete>
@@ -29,24 +29,20 @@ import {Observable} from 'rxjs';
 export class AddingComponent implements OnInit {
   @Input() tableColumnNames: { [key: string]: string[] };
   @Input() currentTable: string;
-  tableKeys: string[] = ['name', 'species', 'roomId'];
+  @Input() tableKeys: string[];
   myGroup: FormGroup = new FormGroup({
     none: new FormControl()
   });
-  tableData: { [key: string]: string[] } = {
-    name: ['Piesel 1', 'Piesel 2'],
-    species: ['Dog', 'Elephant'],
-    'room id': ['15', '16', '17']
-  };
+  @Input() tableData: { [key: string]: string[] };
   filteredOptions: Map<string, Observable<string[]>> = new Map<string, Observable<string[]>>();
 
   ngOnInit(): void {
-    this.tableColumnNames[this.currentTable].forEach(key => {
-      this.myGroup.addControl(key.toLocaleLowerCase(), new FormControl());
-      this.filteredOptions[key.toLocaleLowerCase()] = this.myGroup.controls[key.toLocaleLowerCase()].valueChanges
+    this.tableKeys.forEach(key => {
+      this.myGroup.addControl(key, new FormControl());
+      this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filter(key.toLocaleLowerCase(), value))
+          map(value => this._filter(key, value))
         );
     });
 

@@ -8,15 +8,17 @@ import {NgForm} from '@angular/forms';
   template: `
       <div class="content-wrapper">
           <mat-grid-list cols="1" rowHeight="40px">
-              <mat-grid-tile>Displaying {{ editingTable }}</mat-grid-tile>
+              <mat-grid-tile>Displaying {{ currentTable }}</mat-grid-tile>
           </mat-grid-list>
           <mat-tab-group>
               <mat-tab label="Add to table">
                   <add-to-table [tableColumnNames]="tableColumns"
-                                [currentTable]="editingTable"></add-to-table>
+                                [currentTable]="currentTable"
+                                [tableKeys]="tableKeys"
+                                [tableData]="tablesData"></add-to-table>
               </mat-tab>
               <mat-tab label="Modify table">
-                  <modify [columns]="columnKeys" [dataSource]="tableData"></modify>
+                  <modify [columns]="tableKeys" [dataSource]="tableData"></modify>
               </mat-tab>
           </mat-tab-group>
       </div>
@@ -26,11 +28,17 @@ export class EditDatabaseComponent implements OnInit {
   table$;
   tableColumns: { [key: string]: string[] } = {
     animals: ['Name', 'Species', 'Room ID'],
-    rooms: ['Name', 'Localization', 'Enclosure', 'Caretaker']
+    rooms: ['Name', 'Surface', 'Price']
   };
-  editingTable: string;
-  columnKeys: string[];
+  currentTable: string;
+  tableKeys: string[];
   tableData;
+
+  tablesData: { [key: string]: string[] } = {
+    name: ['Piesel 1', 'Piesel 2'],
+    species: ['Dog', 'Elephant'],
+    roomId: ['15', '16', '17']
+  };
 
   constructor(private route: ActivatedRoute) {
   }
@@ -41,9 +49,18 @@ export class EditDatabaseComponent implements OnInit {
     );
     this.table$.subscribe(
       (next: string) => {
-        this.editingTable = (next);
-        this.columnKeys = this.editingTable === 'animals' ? ['name', 'species', 'roomId'] : ['name', 'surface', 'price'];
-        this.tableData = this.editingTable === 'animals' ? [
+        this.currentTable = (next);
+        this.tableKeys = this.currentTable === 'animals' ? ['name', 'species', 'roomId'] : ['name', 'surface', 'price'];
+        this.tablesData = this.currentTable === 'animals' ? {
+          name: ['Piesel 1', 'Piesel 2'],
+          species: ['Dog', 'Elephant'],
+          roomId: ['15', '16', '17']
+        } : {
+          name: ['Pokoj 1', 'Pokoj 2'],
+          surface: ['100', '200', '300'],
+          price: ['15', '25', '35']
+        };
+        this.tableData = this.currentTable === 'animals' ? [
           {
             name: 'Slonik',
             species: 'Elephant',
@@ -51,123 +68,9 @@ export class EditDatabaseComponent implements OnInit {
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           },
           {
-            name: 'Pieseł',
+            name: 'Doge',
             species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
-          },
-          {
-            name: 'Pieseł',
-            species: 'Dog',
-            roomId: 16,
+            roomId: 15,
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, officia.'
           }
         ] : [
