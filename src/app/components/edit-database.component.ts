@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {map, switchMap} from 'rxjs/operators';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
-import {AnimalModel} from '../models/table-models';
-import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: `edit-database`,
@@ -14,21 +12,19 @@ import {MatTableDataSource} from '@angular/material';
           </mat-grid-list>
           <mat-tab-group>
               <mat-tab label="Add to table">
-                  <add-to-table [tablesData]="tablesData"
-                                [editingTable]="editingTable"></add-to-table>
+                  <add-to-table [tableColumnNames]="tableColumns"
+                                [currentTable]="editingTable"></add-to-table>
               </mat-tab>
-              <mat-tab label="Delete from table"></mat-tab>
               <mat-tab label="Modify table">
                   <modify [columns]="columnKeys" [dataSource]="tableData"></modify>
               </mat-tab>
-              <mat-tab label="Display table"></mat-tab>
           </mat-tab-group>
       </div>
   `
 })
 export class EditDatabaseComponent implements OnInit {
   table$;
-  tablesData: { [key: string]: string[] } = {
+  tableColumns: { [key: string]: string[] } = {
     animals: ['Name', 'Species', 'Room ID'],
     rooms: ['Name', 'Localization', 'Enclosure', 'Caretaker']
   };
@@ -191,6 +187,7 @@ export class EditDatabaseComponent implements OnInit {
       }
     );
   }
+
   onSubmit(f: NgForm): void {
     console.log(f);
   }
