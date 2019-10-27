@@ -1,15 +1,4 @@
 import {Component} from '@angular/core';
-import {Edit, Header} from '../models/nav-bar-model';
-
-export interface Headers {
-  type: Header;
-  name: string;
-}
-
-export interface Edits {
-  type: Edit;
-  name: string;
-}
 
 @Component({
   selector: 'nav-bar',
