@@ -24,9 +24,15 @@ import {DialogDetailsComponent} from './dialog-details.component';
                           {{element.description}}
                           <span class="element-description-attribution"> -- Wikipedia </span>
                           <div class="manage-buttons" style="padding-top: 1rem">
-                              <button mat-raised-button (click)="deleteItem(element)" matTooltip="Delete item from database">Delete</button>
-                              <button mat-raised-button (click)="modifyItem(element)" matTooltip="Modify item's state and update">Modify</button>
-                              <button mat-raised-button (click)="showDetails(element)" matTooltip="Show details of given item">Details</button>
+                              <button mat-raised-button
+                                      (click)="deleteItem(element)"
+                                      matTooltip="Delete item from database">Delete</button>
+                              <button mat-raised-button
+                                      (click)="modifyItem(element)"
+                                      matTooltip="Modify item's state and update">Modify</button>
+                              <button mat-raised-button
+                                      (click)="showDetails(element)"
+                                      matTooltip="Show details of given item">Details</button>
                           </div>
                       </div>
                   </div>

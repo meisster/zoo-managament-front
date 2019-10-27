@@ -15,7 +15,7 @@ import {NgForm} from '@angular/forms';
                   <add-to-table [tableColumnNames]="tableColumns"
                                 [currentTable]="currentTable"
                                 [tableKeys]="tableKeys"
-                                [tableData]="tablesData"></add-to-table>
+                                [tableData]="tableData"></add-to-table>
               </mat-tab>
               <mat-tab label="Modify table">
                   <modify [columns]="tableKeys" [dataSource]="tableData"></modify>
@@ -33,12 +33,6 @@ export class EditDatabaseComponent implements OnInit {
   currentTable: string;
   tableKeys: string[];
   tableData;
-
-  tablesData: { [key: string]: string[] } = {
-    name: ['Piesel 1', 'Piesel 2'],
-    species: ['Dog', 'Elephant'],
-    roomId: ['15', '16', '17']
-  };
 
   constructor(private route: ActivatedRoute) {
   }
@@ -86,15 +80,6 @@ export class EditDatabaseComponent implements OnInit {
         ];
       }
     );
-    this.tablesData = this.parseData(this.tableData);
-  }
-
-  private parseData(data) {
-    const res: {[key: string]: string[]} = {};
-    Object.keys(data[0]).forEach(key => {
-      res[key] = data.map(el => String(el[key]));
-    });
-    return res;
   }
 
   onSubmit(f: NgForm): void {

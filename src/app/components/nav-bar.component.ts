@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {Edit, Header} from '../models/nav-bar-model';
 
 export interface Headers {
@@ -31,43 +31,4 @@ export interface Edits {
   `,
 })
 export class NavigationBarComponent {
-  @Output() onTabClicked: EventEmitter<number> = new EventEmitter<number>();
-  currentTab: number = 0;
-  headers: Headers[] = [
-    {
-      type: Header.Home,
-      name: 'Home'
-    },
-    {
-      type: Header.Edit,
-      name: 'Edit database'
-    },
-    {
-      type: Header.Show,
-      name: 'Show database'
-    }
-  ];
-  edits: Edits[] = [
-    {
-      type: Edit.A,
-      name: 'A'
-    },
-    {
-      type: Edit.B,
-      name: 'B'
-    },
-    {
-      type: Edit.C,
-      name: 'C'
-    },
-    {
-      type: Edit.D,
-      name: 'D'
-    }
-  ];
-
-  tabClick(tabIndex: number): void {
-    this.currentTab = tabIndex;
-    this.onTabClicked.emit(tabIndex);
-  }
 }

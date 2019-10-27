@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Form, FormControl, FormGroup, NgForm} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -27,13 +27,31 @@ import {Observable} from 'rxjs';
   `
 })
 export class AddingComponent implements OnInit {
+  // tslint:disable-next-line:variable-name
+  private tableKeys: string[];
+  private tableData: { [key: string]: string[] };
+  myGroup: FormGroup = new FormGroup({none: new FormControl() });
+  @Input('tableData') set tables(inputTablesData) {
+    this.tableData = this.parseData(inputTablesData);
+    console.log('Table data changed!: ', this.tableData);
+  }
   @Input() tableColumnNames: { [key: string]: string[] };
   @Input() currentTable: string;
-  @Input() tableKeys: string[] = [];
-  myGroup: FormGroup = new FormGroup({
-    none: new FormControl()
-  });
-  @Input() tableData: { [key: string]: string[] };
+  @Input('tableKeys') set data(tableKeys) {
+    this.tableKeys = tableKeys;
+    this.myGroup = new FormGroup({
+      none: new FormControl()
+    });
+    this.tableKeys.forEach(key => {
+      this.myGroup.addControl(key, new FormControl());
+      this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(key, value))
+        );
+    });
+  }
+
   filteredOptions: Map<string, Observable<string[]>> = new Map<string, Observable<string[]>>();
 
   ngOnInit(): void {
@@ -48,6 +66,14 @@ export class AddingComponent implements OnInit {
 
   }
 
+  parseData(data) {
+    const res: {[key: string]: string[]} = {};
+    Object.keys(data[0]).forEach(key => {
+      res[key] = data.map(el => String(el[key]));
+    });
+    return res;
+  }
+
   private _filter(key: string, value: string): string[] {
     const filterValue = value.toLowerCase();
     console.log('filtering ', value, 'for ', this.tableData[key]);
@@ -56,7 +82,7 @@ export class AddingComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.myGroup.value);
+    console.log(this.myGroup);
   }
 
 }
