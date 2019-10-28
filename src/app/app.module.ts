@@ -20,6 +20,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddingComponent} from './components/adding.component';
 import {ModifyComponent} from './components/modify.component';
 import {DialogDetailsComponent} from './components/dialog-details.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {DialogDetailsComponent} from './components/dialog-details.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
