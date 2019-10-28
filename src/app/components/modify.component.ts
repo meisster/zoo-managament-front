@@ -73,10 +73,10 @@ export class ModifyComponent implements OnInit {
   expandedElement: any;
 
   columnValues: { [key: string]: string } = {
+    id: 'ID',
     name: 'Name',
     species: 'Species',
     roomId: 'Room ID',
-    surface: 'Surface',
     price: 'Price'
   };
 

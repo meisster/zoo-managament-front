@@ -14,7 +14,7 @@ import {Animal} from '../Types/ResponseTypes';
       </mat-grid-list>
       <mat-tab-group>
         <mat-tab label="Add to table">
-          <add-to-table [tableColumnNames]="tableColumns"
+          <add-to-table [tableColumnNames]="tableColumnNames"
                         [currentTable]="currentTable"
                         [tableKeys]="tableKeys"
                         [tableData]="tableData"></add-to-table>
@@ -28,7 +28,7 @@ import {Animal} from '../Types/ResponseTypes';
 })
 export class EditDatabaseComponent {
   table$;
-  tableColumns: { [key: string]: string[] } = {
+  tableColumnNames: { [key: string]: string[] } = {
     animals: ['Id', 'Name', 'Species name', 'Room ID'],
     rooms: ['Name', 'Surface', 'Price']
   };
