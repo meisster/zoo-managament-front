@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -10,10 +10,11 @@ import {Observable} from 'rxjs';
       <ng-container *ngFor="let column of tableColumnNames[currentTable]; let i = index">
         <mat-form-field color="warn" appearance="outline">
           <mat-label>{{column}}</mat-label>
-          <input matInput required name="{{tableKeys[i]}}"
+          <input matInput name="{{tableKeys[i]}}"
                  [formControl]="myGroup.controls[tableKeys[i]]"
                  [formControlName]="tableKeys[i]"
                  [matAutocomplete]="auto">
+                  <mat-error *ngIf="myGroup.controls[tableKeys[i]].invalid" style="font-size: 12px">Fill the required field!</mat-error>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions[tableKeys[i]] | async" [value]="option">
               {{option}}
@@ -21,12 +22,12 @@ import {Observable} from 'rxjs';
           </mat-autocomplete>
         </mat-form-field>
       </ng-container>
-      <mat-error *ngIf="myGroup.invalid" style="padding-bottom: 1rem">Uzupełnij wymagane pola!</mat-error>
+      <mat-divider style="margin: 1rem 0"></mat-divider>
       <button mat-button mat-raised-button>Submit</button>
     </form>
   `
 })
-export class AddingComponent {
+export class AddingComponent implements OnInit, AfterViewChecked {
   // tslint:disable-next-line:variable-name
   private tableKeys: string[];
   private tableData: { [key: string]: string[] };
@@ -44,13 +45,12 @@ export class AddingComponent {
 
   @Input('tableKeys') set data(tableKeys) {
     if (!!tableKeys) {
-
       this.tableKeys = tableKeys;
       this.myGroup = new FormGroup({
         none: new FormControl()
       });
       this.tableKeys.forEach(key => {
-        this.myGroup.addControl(key, new FormControl());
+        this.myGroup.addControl(key, new FormControl('', Validators.required));
         this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
           .pipe(
             startWith(''),
@@ -61,6 +61,25 @@ export class AddingComponent {
   }
 
   filteredOptions: Map<string, Observable<string[]>> = new Map<string, Observable<string[]>>();
+
+  constructor(private cdRef: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    this.tableKeys.forEach(key => {
+      this.myGroup.addControl(key, new FormControl('', Validators.required));
+      this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(key, value))
+        );
+    });
+
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   parseData(data) {
     if (!!data) {

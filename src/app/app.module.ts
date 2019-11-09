@@ -7,7 +7,7 @@ import {HomePageComponent} from './components/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
-  MatButtonModule, MatDialogModule,
+  MatButtonModule, MatDialogModule, MatDividerModule,
   MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
@@ -53,7 +53,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatTableModule,
     MatSortModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDividerModule
   ],
   entryComponents: [
     DialogDetailsComponent

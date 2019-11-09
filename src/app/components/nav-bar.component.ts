@@ -5,7 +5,8 @@ import {Component} from '@angular/core';
   template: `
       <mat-toolbar color="primary">
           <mat-toolbar-row>
-              <button mat-button routerLink="/home" routerLinkActive="active">{{ "Home" }}</button>
+              <button mat-button routerLink="/home" routerLinkActive="active"
+                      style="font-size: 18px; border-bottom: 1px solid gray;">Home</button>
               <button mat-button [matMenuTriggerFor]="menu">Manage tables</button>
               <mat-menu #menu="matMenu">
                   <button mat-menu-item routerLink="/edit/animals">Manage animals</button>

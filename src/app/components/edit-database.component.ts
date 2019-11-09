@@ -12,6 +12,7 @@ import {Animal} from '../Types/ResponseTypes';
       <mat-grid-list cols="1" rowHeight="40px">
         <mat-grid-tile>Displaying {{ currentTable }}</mat-grid-tile>
       </mat-grid-list>
+      <mat-divider style="margin: 10px 0;"></mat-divider>
       <mat-tab-group>
         <mat-tab label="Add to table">
           <add-to-table [tableColumnNames]="tableColumnNames"
@@ -57,6 +58,10 @@ export class EditDatabaseComponent {
         });
       }
     );
+  }
+
+  onSubmit(f: NgForm): void {
+    console.log(f);
   }
 }
 
