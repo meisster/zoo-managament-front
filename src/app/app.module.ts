@@ -21,6 +21,10 @@ import {AddingComponent} from './components/adding.component';
 import {ModifyComponent} from './components/modify.component';
 import {DialogDetailsComponent} from './components/dialog-details.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ConnectorService} from './connector/connector.service';
+import {DataUtilService} from './components/data-util.service';
+import {SpinnerComponent} from './components/spinner.component';
+import {ModifyItemComponent} from './components/modify-item.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import {HttpClientModule} from '@angular/common/http';
     EditDatabaseComponent,
     AddingComponent,
     ModifyComponent,
-    DialogDetailsComponent
+    DialogDetailsComponent,
+    SpinnerComponent,
+    ModifyItemComponent
   ],
   imports: [
     BrowserModule,
@@ -56,10 +62,11 @@ import {HttpClientModule} from '@angular/common/http';
     MatTooltipModule,
     MatDividerModule
   ],
+  // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [
     DialogDetailsComponent
   ],
-  providers: [],
+  providers: [ConnectorService, DataUtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

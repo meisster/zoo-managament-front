@@ -1,7 +1,9 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ApplicationRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {DialogDetailsComponent} from './dialog-details.component';
+import {ConnectorService} from '../connector/connector.service';
+import {DatabaseData} from '../connector/database-data';
 
 @Component({
   selector: `modify`,
@@ -11,35 +13,34 @@ import {DialogDetailsComponent} from './dialog-details.component';
           <mat-label>Filter</mat-label>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter items...">
       </mat-form-field>
-      <table mat-table [dataSource]="data" matSort multiTemplateDataRows class="mat-elevation-z8">
-          <ng-container matColumnDef="{{ column }}" *ngFor="let column of columns">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnValues[column] }} </th>
-              <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+      <table mat-table [dataSource]="tableData" matSort multiTemplateDataRows class="mat-elevation-z8">
+          <ng-container matColumnDef="{{ key }}" *ngFor="let key of tableKeys; let i = index;">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnLabels[i] }} </th>
+              <td mat-cell *matCellDef="let element">{{element[key]}}</td>
           </ng-container>
           <ng-container matColumnDef="expandedDetail">
-              <td mat-cell *matCellDef="let element" [attr.colspan]="columns.length">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="tableKeys.length">
                   <div class="element-detail"
                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="manage-buttons">
+                          <button mat-raised-button (click)="sellItem(element)" matTooltip="Delete item from database">
+                              <mat-icon>attach_money</mat-icon>
+                          </button>
+                          <button mat-raised-button (click)="modifyItem(element)" matTooltip="Modify item's state and update">
+                              <mat-icon>edit</mat-icon>
+                          </button>
+                      </div>
                       <div class="element-description">
-                          {{element.description}}
-                          <span class="element-description-attribution"> -- Wikipedia </span>
-                          <div class="manage-buttons" style="padding-top: 1rem">
-                              <button mat-raised-button
-                                      (click)="deleteItem(element)"
-                                      matTooltip="Delete item from database">Delete</button>
-                              <button mat-raised-button
-                                      (click)="modifyItem(element)"
-                                      matTooltip="Modify item's state and update">Modify</button>
-                              <button mat-raised-button
-                                      (click)="showDetails(element)"
-                                      matTooltip="Show details of given item">Details</button>
-                          </div>
+                          <img *ngIf="element.photoUrl" src="{{ element.photoUrl }}" alt="" width="250px">
+                          <span class="element-description-text" style="width: 100%">{{element.description}}
+                              <span class="element-description-attribution"> -- Wikipedia </span>
+                          </span>
                       </div>
                   </div>
               </td>
           </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let element; columns: columns;"
+          <tr mat-header-row *matHeaderRowDef="tableKeys"></tr>
+          <tr mat-row *matRowDef="let element; columns: tableKeys;"
               class="element-row"
               [class.expanded-row]="expandedElement === element"
               (click)="expandedElement = expandedElement === element ? null : element">
@@ -54,51 +55,48 @@ import {DialogDetailsComponent} from './dialog-details.component';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  providers: [ConnectorService]
 })
 export class ModifyComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   // tslint:disable-next-line:variable-name
-  private _data;
-  @Input() columns: string[];
+  private _tableData;
+  @Input() tableKeys: string[];
 
-  @Input('dataSource') set data(dataSource) {
-    this._data = new MatTableDataSource(dataSource);
-    this._data.sort = this.sort;
+  @Input('dataSource') set tableData(dataSource) {
+    console.log('data source', dataSource);
+    this._tableData = new MatTableDataSource(dataSource);
+    this._tableData.sort = this.sort;
   }
 
-  get data() {
-    return this._data;
+  get tableData() {
+    return this._tableData;
   }
+
+  @Input() endpoint: string;
 
   expandedElement: any;
 
-  columnValues: { [key: string]: string } = {
-    id: 'ID',
-    name: 'Name',
-    species: 'Species',
-    roomId: 'Room ID',
-    price: 'Price'
-  };
+  @Input()
+  columnLabels: string[] = [];
 
-  constructor(public dialog: MatDialog) {
+  @Output() refresh: EventEmitter<unknown> = new EventEmitter<unknown>();
+
+  constructor(public dialog: MatDialog, private connector: ConnectorService, private appTick: ApplicationRef) {
   }
 
   ngOnInit(): void {
-    this._data.sort = this.sort;
+    this._tableData.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
-    this._data.filter = filterValue.trim().toLowerCase();
+    this._tableData.filter = filterValue.trim().toLowerCase();
   }
 
   modifyItem(element) {
-    console.log(element);
-  }
-
-  showDetails(element) {
     const dialogRef = this.dialog.open(DialogDetailsComponent, {
       width: '250px',
-      data: element
+      data: DatabaseData.dialogData(element)[(this.endpoint)].modify
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -106,19 +104,16 @@ export class ModifyComponent implements OnInit {
     });
   }
 
-  deleteItem(element) {
+  sellItem(element) {
     const dialogRef = this.dialog.open(DialogDetailsComponent, {
-      width: '250px',
-      data: {
-        title: 'Delete item',
-        content: 'Are you sure you want to delete item ' + element.name + ' ?',
-        okClick: 'Yes',
-        noClick: 'No'
+      width: '400px',
+      data: DatabaseData.dialogData(element)[(this.endpoint)].sell
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.connector.sellAnimal(element.id);
+        setTimeout(() => this.refresh.emit(), 400);
       }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
     });
   }
 }

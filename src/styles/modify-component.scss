@@ -1,7 +1,8 @@
 modify {
   .element-detail {
-    overflow: hidden;
     display: flex;
+    flex-flow: column;
+    overflow: hidden;
   }
 
   table {
@@ -30,10 +31,23 @@ modify {
 
 
   .element-description {
-    padding: 16px;
+    display: flex;
+    font-weight: lighter;
+    margin-bottom: 1rem;
+    img {
+      border-radius: 5px;
+      margin-right: 1rem;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
   }
 
   .element-description-attribution {
     opacity: 0.5;
+    padding-bottom: 6px;
+  }
+
+  .manage-buttons {
+    margin-left: auto;
+    padding-bottom: 1rem;
   }
 }
