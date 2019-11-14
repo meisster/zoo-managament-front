@@ -11,14 +11,4 @@ export class DataUtilService {
       return res;
     }
   }
-
-  public parseSingleData(data) {
-    if (!!data) {
-      const res: { [key: string]: string } = {};
-      Object.keys(data).forEach(key => {
-        res[key] = String(data[key]);
-      });
-      return res;
-    }
-  }
 }

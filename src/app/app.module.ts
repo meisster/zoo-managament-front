@@ -11,32 +11,47 @@ import {
   MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
-  MatSidenavModule, MatSortModule, MatTableModule, MatTabsModule,
+  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {NavigationBarComponent} from './components/nav-bar.component';
-import {EditDatabaseComponent} from './components/edit-database.component';
+import {EditAnimalsComponent} from './components/animals/edit-animals.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddingComponent} from './components/adding.component';
-import {ModifyComponent} from './components/modify.component';
-import {DialogDetailsComponent} from './components/dialog-details.component';
+import {DisplayAnimalsComponent} from './components/animals/display-animals.component';
+import {DialogDetailsComponent} from './components/animals/dialog-details.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ConnectorService} from './connector/connector.service';
-import {DataUtilService} from './components/data-util.service';
-import {SpinnerComponent} from './components/spinner.component';
-import {ModifyItemComponent} from './components/modify-item.component';
+import {DataUtilService} from './util/data-util.service';
+import {SpinnerComponent} from './util/spinner.component';
+import {ModifyItemComponent} from './components/animals/modify-item.component';
+import {DisplaySpeciesComponent} from './components/animals/display-species.component';
+import {EditSpaceComponent} from './components/space/edit-space.component';
+import {DisplaySpaceComponent} from './components/space/display-space.component';
+import {AccordionModule} from 'primeng/accordion';
+import {SpaceDialogComponent} from './components/space/space-dialog.component';
+import {MyRoomsComponent} from './components/space/my-rooms.component';
+import {RoomsToBuyComponent} from './components/space/rooms-to-buy.component';
+import {BuyRoomComponent} from './components/space/buy-room.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     NavigationBarComponent,
-    EditDatabaseComponent,
+    EditAnimalsComponent,
     AddingComponent,
-    ModifyComponent,
+    DisplayAnimalsComponent,
     DialogDetailsComponent,
     SpinnerComponent,
-    ModifyItemComponent
+    ModifyItemComponent,
+    DisplaySpeciesComponent,
+    DisplaySpaceComponent,
+    SpaceDialogComponent,
+    EditSpaceComponent,
+    MyRoomsComponent,
+    RoomsToBuyComponent,
+    BuyRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -60,13 +75,15 @@ import {ModifyItemComponent} from './components/modify-item.component';
     MatSortModule,
     MatDialogModule,
     MatTooltipModule,
-    MatDividerModule
+    MatDividerModule,
+    AccordionModule,
+    MatSnackBarModule
   ],
   // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [
-    DialogDetailsComponent
+    DialogDetailsComponent, SpaceDialogComponent
   ],
-  providers: [ConnectorService, DataUtilService],
+  providers: [ConnectorService, DataUtilService, MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

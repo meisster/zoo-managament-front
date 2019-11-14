@@ -5,6 +5,7 @@ import {logger} from 'codelyzer/util/logger';
 
 @Injectable()
 export class ConnectorService {
+
   private readonly SERVICE_URL = 'http://localhost:8080/';
 
   constructor(private http: HttpClient, private ngZone: NgZone) {
@@ -15,12 +16,23 @@ export class ConnectorService {
     return this.http.get(this.SERVICE_URL + endpoint);
   }
 
+  public post(endpoint: string, body: {}): Observable<object> {
+    logger.debug('Calling ', this.SERVICE_URL + endpoint);
+    return this.http.post(this.SERVICE_URL + endpoint, body);
+  }
+  public patch(endpoint: any, body: {}): Observable<object> {
+    logger.debug('Calling ', this.SERVICE_URL + endpoint);
+    return this.http.patch(this.SERVICE_URL + endpoint, body);
+  }
+
   public retrieveData(endpoint: string, data) {
     switch (endpoint) {
       case 'animals':
         return this.retrieveAnimals(data);
       case 'rooms':
         return this.retrieveRooms(data);
+      case 'species':
+        return this.retrieveSpecies(data);
     }
   }
 
@@ -40,12 +52,37 @@ export class ConnectorService {
   }
 
   private retrieveRooms(data) {
+    return data.map(value => {
+      return {
+        id: value.id,
+        localization: value.localization,
+        locatorsMaxNumber: value.locatorsMaxNumber,
+        surface: value.surface,
+        price: value.price,
+        bought: value.bought,
+        species: value.species,
+        caretakerId: value.caretakerId,
+        enclosureId: value.enclosureId
+      };
+    });
+  }
 
+  private retrieveSpecies(data) {
+    return data.map(value => {
+      return {
+        name: value.name,
+        prestige: value.prestigePoints,
+        description: value.description,
+        photoUrl: value.photoUrl,
+        naturalHabitat: value.naturalHabitat,
+        food: value.food,
+        price: value.price
+      };
+    });
   }
 
   sellAnimal(id: string) {
-    console.log(this.SERVICE_URL + 'animals/' + id);
-    this.ngZone.run(() => this.http.delete(this.SERVICE_URL + 'animals/' + id).subscribe(next => console.log(next)));
+    return this.http.delete(this.SERVICE_URL + 'animals/' + id);
   }
 
   getRoomsBySpecies(species: string): Observable<object> {

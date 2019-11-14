@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomePageComponent} from './components/home-page.component';
-import {EditDatabaseComponent} from './components/edit-database.component';
+import {EditAnimalsComponent} from './components/animals/edit-animals.component';
+import {EditSpaceComponent} from './components/space/edit-space.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,20 @@ const routes: Routes = [
     data: {title: 'Welcome to zoo managament app!'}
   },
   {
-    path: 'edit/:table',
-    component: EditDatabaseComponent,
+    path: 'edit/animals',
+    component: EditAnimalsComponent,
+  },
+  {
+    path: 'edit/space',
+    component: EditSpaceComponent
+  },
+  {
+    path: 'edit/budget',
+    component: HomePageComponent
+  },
+  {
+    path: 'edit/workers',
+    component: HomePageComponent
   },
   {
     path: '',

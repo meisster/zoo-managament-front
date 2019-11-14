@@ -2,7 +2,7 @@ import {AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component,
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DataUtilService} from './data-util.service';
+import {DataUtilService} from '../util/data-util.service';
 
 @Component({
   selector: `add-to-table`,

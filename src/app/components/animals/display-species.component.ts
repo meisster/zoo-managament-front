@@ -1,12 +1,12 @@
-import {ApplicationRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {ConnectorService} from '../../connector/connector.service';
+import {DatabaseData} from '../../util/database-data';
 import {DialogDetailsComponent} from './dialog-details.component';
-import {ConnectorService} from '../connector/connector.service';
-import {DatabaseData} from '../connector/database-data';
 
 @Component({
-  selector: `modify`,
+  selector: `display-species`,
   template: `
       <mat-form-field color="warn" appearance="outline">
           <mat-icon matSuffix>search</mat-icon>
@@ -22,19 +22,16 @@ import {DatabaseData} from '../connector/database-data';
               <td mat-cell *matCellDef="let element" [attr.colspan]="tableKeys.length">
                   <div class="element-detail"
                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                      <div class="manage-buttons">
-                          <button mat-raised-button (click)="sellItem(element)" matTooltip="Delete item from database">
-                              <mat-icon>attach_money</mat-icon>
-                          </button>
-                          <button mat-raised-button (click)="modifyItem(element)" matTooltip="Modify item's state and update">
-                              <mat-icon>edit</mat-icon>
-                          </button>
-                      </div>
                       <div class="element-description">
                           <img *ngIf="element.photoUrl" src="{{ element.photoUrl }}" alt="" width="250px">
                           <span class="element-description-text" style="width: 100%">{{element.description}}
                               <span class="element-description-attribution"> -- Wikipedia </span>
                           </span>
+                          <div class="manage-buttons">
+                              <button mat-flat-button (click)="buy(element)" matTooltip="Buy an animal of this species">
+                                  <mat-icon>add_shopping_cart</mat-icon>
+                              </button>
+                          </div>
                       </div>
                   </div>
               </td>
@@ -57,62 +54,49 @@ import {DatabaseData} from '../connector/database-data';
   ],
   providers: [ConnectorService]
 })
-export class ModifyComponent implements OnInit {
+export class DisplaySpeciesComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   // tslint:disable-next-line:variable-name
   private _tableData;
-  @Input() tableKeys: string[];
-
-  @Input('dataSource') set tableData(dataSource) {
-    console.log('data source', dataSource);
-    this._tableData = new MatTableDataSource(dataSource);
-    this._tableData.sort = this.sort;
-  }
+  private tableKeys: string[] = [];
+  private columnLabels: string[] = [];
 
   get tableData() {
     return this._tableData;
   }
 
-  @Input() endpoint: string;
-
   expandedElement: any;
 
-  @Input()
-  columnLabels: string[] = [];
-
-  @Output() refresh: EventEmitter<unknown> = new EventEmitter<unknown>();
-
-  constructor(public dialog: MatDialog, private connector: ConnectorService, private appTick: ApplicationRef) {
-  }
-
-  ngOnInit(): void {
-    this._tableData.sort = this.sort;
+  constructor(public dialog: MatDialog, private connector: ConnectorService, private _snackBar: MatSnackBar) {
+    this.tableKeys = DatabaseData.speciesColumnKeys;
+    this.columnLabels = DatabaseData.speciesColumnNames;
+    this.connector.get('species').subscribe(response => {
+      this._tableData = new MatTableDataSource(connector.retrieveData('species', response));
+      this._tableData.sort = this.sort;
+    },
+      error => {
+        this._snackBar.open('Server unreachable!', 'OK', {duration: 4000});
+      });
   }
 
   applyFilter(filterValue: string) {
     this._tableData.filter = filterValue.trim().toLowerCase();
   }
 
-  modifyItem(element) {
-    const dialogRef = this.dialog.open(DialogDetailsComponent, {
-      width: '250px',
-      data: DatabaseData.dialogData(element)[(this.endpoint)].modify
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
-  }
-
-  sellItem(element) {
+  buy(element) {
     const dialogRef = this.dialog.open(DialogDetailsComponent, {
       width: '400px',
-      data: DatabaseData.dialogData(element)[(this.endpoint)].sell
+      data: {
+        title: 'Buy animal',
+        animal: element,
+        endpoint: 'animals',
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.connector.sellAnimal(element.id);
-        setTimeout(() => this.refresh.emit(), 400);
+      if (result === 'success') {
+        this._snackBar.open('Animal bought succesfully', 'OK', {duration: 4000});
+      } else if (result === 'error') {
+        this._snackBar.open('Can\'t buy animal of this species', 'OK', {duration: 4000});
       }
     });
   }

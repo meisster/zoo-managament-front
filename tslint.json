@@ -6,9 +6,12 @@
     "deprecation": {
       "severity": "warn"
     },
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
+    "variable-name": false,
     "directive-selector": [
       true,
       "attribute",
@@ -32,7 +35,7 @@
     ],
     "member-access": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "static-field",

@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {DataUtilService} from './data-util.service';
+import {DataUtilService} from '../../util/data-util.service';
 import {map, startWith} from 'rxjs/operators';
-import {DatabaseData} from '../connector/database-data';
+import {DatabaseData} from '../../util/database-data';
+import {ConnectorService} from '../../connector/connector.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'modify-item',
@@ -16,7 +18,7 @@ import {DatabaseData} from '../connector/database-data';
                          [formControl]="myGroup.controls[tableKeys[i]]"
                          [formControlName]="tableKeys[i]"
                          [matAutocomplete]="auto">
-                  <mat-error *ngIf="myGroup.controls[tableKeys[i]].invalid" style="font-size: 12px">Fill the required field!</mat-error>
+                  <mat-error *ngIf="myGroup.controls[tableKeys[i]]?.invalid" style="font-size: 12px">Fill the required field!</mat-error>
                   <mat-autocomplete #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions[tableKeys[i]] | async" [value]="option">
                           {{option}}
@@ -25,14 +27,16 @@ import {DatabaseData} from '../connector/database-data';
               </mat-form-field>
           </ng-container>
           <mat-divider style="margin: 1rem 0"></mat-divider>
-          <button mat-button mat-raised-button (click)="onSubmitClicked()">Submit</button>
+          <button mat-button mat-flat-button>Submit</button>
       </form>
-  `
+  `,
+  providers: [ConnectorService]
 })
 export class ModifyItemComponent implements OnInit {
-  private modifiedItem: { [key: string]: string[] };
+  private modifiedItem: { [key: string]: string };
   private tableKeys: string[];
   private columnLabels: string[];
+  @Input() filterKeys: string[];
   @Output() onSubmit: EventEmitter<unknown> = new EventEmitter<unknown>();
 
   myGroup: FormGroup = new FormGroup({none: new FormControl()});
@@ -50,30 +54,47 @@ export class ModifyItemComponent implements OnInit {
 
   filteredOptions: Map<string, Observable<string[]>> = new Map<string, Observable<string[]>>();
 
-  constructor(private dataService: DataUtilService) {
+  constructor(private dataService: DataUtilService, private connector: ConnectorService) {
   }
 
   ngOnInit(): void {
     this.tableKeys.forEach(key => {
-      this.myGroup.addControl(key, new FormControl(this.modifiedItem[key]));
-      this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filter(key, value))
-        );
+      this.myGroup.addControl(key, new FormControl(this.modifiedItem[key], Validators.required));
     });
+    this.connector.getRoomsBySpecies((this.modifiedItem.species || this.modifiedItem.name)).subscribe(
+      (rooms: string[]) => {
+        this.filterData = {
+          roomId: rooms
+        };
+        console.log('ROOMS: ', this.filterData);
+        this.tableKeys.forEach(key => {
+          this.myGroup.addControl(key, new FormControl(this.modifiedItem[key], Validators.required));
+        });
+        console.log('filter keys', this.filterKeys);
+        this.filterKeys.forEach(key => {
+          this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
+            .pipe(
+              startWith(''),
+              map(value => this._filter(key, value))
+            );
+        });
+      });
   }
 
   private _filter(key: string, value: string): string[] {
-    const filterValue = value.toLowerCase();
-    console.log('filtering ', value, 'for ', this.filterData[key]);
+    const filterValue = value.toString().toLowerCase();
+    console.log('filtering ', value, 'for ', this.filterData);
 
-    return this.filterData[key].filter(option => option.toLowerCase().includes(filterValue));
+    return this.filterData[key].filter(option => option.toString().toLowerCase().includes(filterValue));
   }
 
   onSubmitClicked(): void {
     if (this.myGroup.valid) {
-      this.onSubmit.emit(this.myGroup.value);
+      this.onSubmit.emit(
+        {
+          values: this.myGroup.value,
+          id: this.modifiedItem.id
+        });
     }
     console.log(this.myGroup);
   }

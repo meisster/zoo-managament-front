@@ -1,4 +1,4 @@
-modify {
+display-animals, display-species, rooms-to-buy, my-rooms {
   .element-detail {
     display: flex;
     flex-flow: column;
@@ -43,11 +43,18 @@ modify {
 
   .element-description-attribution {
     opacity: 0.5;
-    padding-bottom: 6px;
   }
 
   .manage-buttons {
     margin-left: auto;
     padding-bottom: 1rem;
+  }
+  .element-description-row {
+    display: flex;
+    align-items: center;
+    p {
+      margin-right: 6px;
+      display: inline;
+    }
   }
 }

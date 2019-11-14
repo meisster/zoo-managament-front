@@ -4,3 +4,11 @@ body {
   height: 100%;
 }
 
+body .ui-accordion .ui-accordion-header a {
+  background-color: #303030 !important;
+  border-radius: 6px;
+  &:focus {
+    outline: none;
+  }
+}
+
