@@ -40,6 +40,10 @@ export class ConnectorService {
         return this.retrieveSpecies(data);
       case 'enclosures':
         return this.retrieveEnclosures(data);
+      case 'caretakers':
+        return this.retrieveCaretakers(data);
+      case 'entertainers':
+        return this.retrieveEntertainers(data);
     }
   }
 
@@ -100,6 +104,30 @@ export class ConnectorService {
     });
   }
 
+  private retrieveCaretakers(data: any) {
+    return data.map(caretaker => {
+      return {
+        id: caretaker.id,
+        firstName: caretaker.firstName,
+        lastName: caretaker.name,
+        roomMaxNumber: caretaker.roomMaxNumber,
+        contract: caretaker.contract,
+        contractId: caretaker.contract.id
+      };
+    });
+  }
+
+  private retrieveEntertainers(data: any) {
+    return data.map(caretaker => {
+      return {
+        id: caretaker.id,
+        firstName: caretaker.firstName,
+        lastName: caretaker.name,
+        contract: caretaker.contract
+      };
+    });
+  }
+
   sellAnimal(id: string) {
     const url = 'animals/' + id;
     return this.delete(url);
@@ -126,4 +154,13 @@ export class ConnectorService {
 
   }
 
+  createCaretaker(caretakerData: { [key: string]: string }) {
+    const url = 'caretakers';
+    return this.post(url, caretakerData);
+  }
+
+  fireCaretaker(id: number) {
+    const url = 'caretakers/' + id;
+    return this.delete(url);
+  }
 }

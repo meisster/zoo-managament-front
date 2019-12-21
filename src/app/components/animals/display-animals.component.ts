@@ -67,8 +67,9 @@ export class DisplayAnimalsComponent implements OnInit {
   columnLabels: string[] = [];
 
   constructor(public dialog: MatDialog, private connector: ConnectorService, private _snackBar: MatSnackBar) {
-    this.tableKeys = DatabaseData.roomsColumnKeys;
-    this.columnLabels = DatabaseData.roomsColumnNames;
+    this.tableKeys = DatabaseData.animalsColumnKeys;
+    this.columnLabels = DatabaseData.animalsColumnNames;
+    this.acquireData(this.endpoint);
   }
 
   acquireData(endpoint: string) {

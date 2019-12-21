@@ -10,7 +10,7 @@ import {DatabaseData} from '../../util/database-data';
     <div class="content-wrapper">
       <mat-grid-list cols="1" rowHeight="40px">
         <mat-grid-tile style="font-size: 20px">{{ ('Displaying animals').toLocaleUpperCase() }}</mat-grid-tile>
-        <spinner *ngIf="this.showSpinner"></spinner>
+        <spinner [showSpinner]="showSpinner"></spinner>
       </mat-grid-list>
       <mat-divider style="margin: 10px 0;"></mat-divider>
       <mat-tab-group>

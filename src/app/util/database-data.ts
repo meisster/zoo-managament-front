@@ -11,7 +11,8 @@ export class DatabaseData {
 
   public static cardLabels: { [endpoint: string]: string[] } = {
     animals: ['My animals', 'Species to buy'],
-    space: ['Rooms', 'Enclosure']
+    space: ['Rooms', 'Enclosure'],
+    workers: ['Caretakers', 'Entertainers']
   };
 
   public static modifyItemKeys: { [endpoint: string]: string[] } = {
@@ -30,6 +31,10 @@ export class DatabaseData {
   public static roomsColumnNames: string[] = ['ID', 'Localization', 'Space left', 'Surface'];
   public static enclosuresColumnKeys: string[] = ['id', 'bought', 'localization', 'price', 'surface', 'habitat'];
   public static enclosuresColumnNames: string[] = ['ID', 'Bought', 'Localization', 'Price', 'Surface', 'Habitat'];
+  public static caretakersColumnKeys: string[] = ['id', 'firstName', 'lastName', 'roomMaxNumber', 'contractId'];
+  public static caretakersColumnNames: string[] = ['ID', 'First Name', 'Last Name', 'Room capacity', 'Contract'];
+  public static entertainersColumnKeys: string[] = ['id', 'firstName', 'name', 'contract_id'];
+  public static entertainersColumnNames: string[] = ['ID', 'First Name', 'Last Name', 'Contract'];
 
   public static dialogData(data): { [endpoint: string]: { [method: string]: { [key: string]: string } } } {
     return {

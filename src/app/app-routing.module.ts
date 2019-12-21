@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomePageComponent} from './components/home-page.component';
 import {EditAnimalsComponent} from './components/animals/edit-animals.component';
 import {EditSpaceComponent} from './components/space/edit-space.component';
+import {EditWorkersComponent} from './components/workers/edit-workers.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'edit/workers',
-    component: HomePageComponent,
+    component: EditWorkersComponent,
     data: {animation: 'changePage'}
   },
   {

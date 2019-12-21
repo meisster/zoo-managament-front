@@ -42,7 +42,6 @@ export class ModifyItemComponent implements OnInit {
 
   @Input('modifiedItem') set tables(inputTablesData) {
     if (inputTablesData) {
-      console.log('acquired data: ', inputTablesData.animal);
       this.modifiedItem = inputTablesData.animal;
       this.tableKeys = DatabaseData.modifyItemKeys[inputTablesData.endpoint];
       this.columnLabels = DatabaseData.modifyItemLabels[inputTablesData.endpoint];
@@ -65,11 +64,9 @@ export class ModifyItemComponent implements OnInit {
         this.filterData = {
           roomId: rooms
         };
-        console.log('ROOMS: ', this.filterData);
         this.tableKeys.forEach(key => {
           this.myGroup.addControl(key, new FormControl(this.modifiedItem[key], Validators.required));
         });
-        console.log('filter keys', this.filterKeys);
         this.filterKeys.forEach(key => {
           this.filteredOptions[key] = this.myGroup.controls[key].valueChanges
             .pipe(
@@ -82,7 +79,6 @@ export class ModifyItemComponent implements OnInit {
 
   private _filter(key: string, value: string): string[] {
     const filterValue = value.toString().toLowerCase();
-    console.log('filtering ', value, 'for ', this.filterData);
 
     return this.filterData[key].filter(option => option.toString().toLowerCase().includes(filterValue));
   }
@@ -95,6 +91,5 @@ export class ModifyItemComponent implements OnInit {
           id: this.modifiedItem.id
         });
     }
-    console.log(this.myGroup);
   }
 }

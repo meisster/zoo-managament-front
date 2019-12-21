@@ -16,6 +16,7 @@ import {
   MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
   MatSidenavModule,
   MatSnackBar,
   MatSnackBarModule,
@@ -28,7 +29,6 @@ import {
 import {NavigationBarComponent} from './components/nav-bar.component';
 import {EditAnimalsComponent} from './components/animals/edit-animals.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AddingComponent} from './components/adding.component';
 import {DisplayAnimalsComponent} from './components/animals/display-animals.component';
 import {DialogDetailsComponent} from './components/animals/dialog-details.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -47,6 +47,9 @@ import {BuyRoomComponent} from './components/space/buy-room.component';
 import {EditCaretakerDialogComponent} from './components/space/edit-caretaker.component';
 import {EditEnclosureDialogComponent} from './components/space/edit-enclosure.component';
 import {DisplayEnclosureComponent} from './components/space/display-enclosure.component';
+import {EditWorkersComponent} from './components/workers/edit-workers.component';
+import {DisplayCaretakersComponent} from './components/workers/display-caretakers.component';
+import {CaretakersDialogComponent} from './components/workers/caretakers-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,6 @@ import {DisplayEnclosureComponent} from './components/space/display-enclosure.co
     HomePageComponent,
     NavigationBarComponent,
     EditAnimalsComponent,
-    AddingComponent,
     DisplayAnimalsComponent,
     DialogDetailsComponent,
     SpinnerComponent,
@@ -68,7 +70,10 @@ import {DisplayEnclosureComponent} from './components/space/display-enclosure.co
     BuyRoomComponent,
     EditCaretakerDialogComponent,
     EditEnclosureDialogComponent,
-    DisplayEnclosureComponent
+    DisplayEnclosureComponent,
+    EditWorkersComponent,
+    DisplayCaretakersComponent,
+    CaretakersDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,11 +99,13 @@ import {DisplayEnclosureComponent} from './components/space/display-enclosure.co
     MatTooltipModule,
     MatDividerModule,
     AccordionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ],
   // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [
-    DialogDetailsComponent, SpaceDialogComponent, EditCaretakerDialogComponent, EditEnclosureDialogComponent
+    DialogDetailsComponent, SpaceDialogComponent, EditCaretakerDialogComponent, EditEnclosureDialogComponent,
+    CaretakersDialogComponent
   ],
   providers: [ConnectorService, DataUtilService, MatSnackBar],
   bootstrap: [AppComponent]

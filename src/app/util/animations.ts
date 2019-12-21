@@ -10,7 +10,7 @@ export const fadeInAnimation =
         })
       ]),
       query(':enter', [
-        animate('600ms ease out',
+        animate('600ms ease in',
           style({opacity: 1})
         )
       ])

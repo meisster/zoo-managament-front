@@ -15,10 +15,9 @@ import {DatabaseData} from '../../util/database-data';
       <mat-divider style="margin: 10px 0;"></mat-divider>
       <mat-tab-group>
         <mat-tab label="{{ cardName(0) }}">
-          <display-space></display-space>
+          <display-caretakers></display-caretakers>
         </mat-tab>
         <mat-tab label="{{ cardName(1) }}">
-          <display-enclosure></display-enclosure>
         </mat-tab>
       </mat-tab-group>
     </div>
@@ -27,8 +26,8 @@ import {DatabaseData} from '../../util/database-data';
   providers: [ConnectorService]
 
 })
-export class EditSpaceComponent {
-  public static readonly ENDPOINT: string = 'space';
+export class EditWorkersComponent {
+  public static readonly ENDPOINT: string = 'workers';
 
   showSpinner: boolean = false;
   tableKeys: string[] = [];
@@ -42,7 +41,7 @@ export class EditSpaceComponent {
   }
 
   public cardName(num: number): string {
-    return DatabaseData.cardLabels[EditSpaceComponent.ENDPOINT][num];
+    return DatabaseData.cardLabels['workers'][num];
   }
 }
 

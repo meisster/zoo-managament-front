@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
-  selector: 'space-dialog',
+  selector: 'enclosure-dialog',
   template: `
     <h1 mat-dialog-title>{{dialogData.title}}</h1>
 
