@@ -28,6 +28,8 @@ export class DatabaseData {
   public static speciesColumnNames: string[] = ['Name', 'Prestige Points', 'Price'];
   public static roomsColumnKeys: string[] = ['id', 'localization', 'locatorsMaxNumber', 'surface'];
   public static roomsColumnNames: string[] = ['ID', 'Localization', 'Space left', 'Surface'];
+  public static enclosuresColumnKeys: string[] = ['id', 'bought', 'localization', 'price', 'surface', 'habitat'];
+  public static enclosuresColumnNames: string[] = ['ID', 'Bought', 'Localization', 'Price', 'Surface', 'Habitat'];
 
   public static dialogData(data): { [endpoint: string]: { [method: string]: { [key: string]: string } } } {
     return {

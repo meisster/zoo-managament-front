@@ -1,18 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {HomePageComponent} from './components/home-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
-  MatButtonModule, MatDialogModule, MatDividerModule,
-  MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
-  MatSidenavModule, MatSnackBar, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule,
-  MatToolbarModule, MatTooltipModule
+  MatSidenavModule,
+  MatSnackBar,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {NavigationBarComponent} from './components/nav-bar.component';
 import {EditAnimalsComponent} from './components/animals/edit-animals.component';
@@ -33,6 +44,10 @@ import {SpaceDialogComponent} from './components/space/space-dialog.component';
 import {MyRoomsComponent} from './components/space/my-rooms.component';
 import {RoomsToBuyComponent} from './components/space/rooms-to-buy.component';
 import {BuyRoomComponent} from './components/space/buy-room.component';
+import {DeleteRoomComponent} from './components/space/delete-room.component';
+import {EditCaretakerDialogComponent} from './components/space/edit-caretaker.component';
+import {EditEnclosureDialogComponent} from './components/space/edit-enclosure.component';
+import {DisplayEnclosureComponent} from './components/space/display-enclosure.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +66,11 @@ import {BuyRoomComponent} from './components/space/buy-room.component';
     EditSpaceComponent,
     MyRoomsComponent,
     RoomsToBuyComponent,
-    BuyRoomComponent
+    BuyRoomComponent,
+    DeleteRoomComponent,
+    EditCaretakerDialogComponent,
+    EditEnclosureDialogComponent,
+    DisplayEnclosureComponent
   ],
   imports: [
     BrowserModule,
@@ -81,9 +100,10 @@ import {BuyRoomComponent} from './components/space/buy-room.component';
   ],
   // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [
-    DialogDetailsComponent, SpaceDialogComponent
+    DialogDetailsComponent, SpaceDialogComponent, EditCaretakerDialogComponent, EditEnclosureDialogComponent
   ],
   providers: [ConnectorService, DataUtilService, MatSnackBar],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

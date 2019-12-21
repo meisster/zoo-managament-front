@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ConnectorService} from '../../connector/connector.service';
@@ -93,10 +93,11 @@ export class DisplaySpeciesComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result === 'success') {
         this._snackBar.open('Animal bought succesfully', 'OK', {duration: 4000});
-      } else if (result === 'error') {
-        this._snackBar.open('Can\'t buy animal of this species', 'OK', {duration: 4000});
+      } else if (result.status === 'error') {
+        this._snackBar.open('Can\'t buy animal of this species: ' + result.message, 'OK', {duration: 4000});
       }
     });
   }

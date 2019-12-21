@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs';
-import {logger} from 'codelyzer/util/logger';
 
 @Injectable()
 export class ConnectorService {
@@ -12,16 +11,17 @@ export class ConnectorService {
   }
 
   public get(endpoint: string): Observable<object> {
-    logger.debug('Calling ', this.SERVICE_URL + endpoint);
+    console.info('Calling GET', this.SERVICE_URL + endpoint);
     return this.http.get(this.SERVICE_URL + endpoint);
   }
 
   public post(endpoint: string, body: {}): Observable<object> {
-    logger.debug('Calling ', this.SERVICE_URL + endpoint);
+    console.info('Calling POST', this.SERVICE_URL + endpoint);
     return this.http.post(this.SERVICE_URL + endpoint, body);
   }
+
   public patch(endpoint: any, body: {}): Observable<object> {
-    logger.debug('Calling ', this.SERVICE_URL + endpoint);
+    console.info('Calling PATCH', this.SERVICE_URL + endpoint);
     return this.http.patch(this.SERVICE_URL + endpoint, body);
   }
 
@@ -33,50 +33,65 @@ export class ConnectorService {
         return this.retrieveRooms(data);
       case 'species':
         return this.retrieveSpecies(data);
+      case 'enclosures':
+        return this.retrieveEnclosures(data);
     }
   }
 
   public retrieveAnimals(data) {
-    return data.map(value => {
+    return data.map(animal => {
       return {
-        id: value.id,
-        name: value.name,
-        species: value.species.name,
+        id: animal.id,
+        name: animal.name,
+        species: animal.species.name,
         // tslint:disable-next-line:object-literal-sort-keys
-        roomId: value.room.id,
-        description: value.species.description,
-        photoUrl: value.species.photoUrl,
-        price: value.species.price
+        roomId: animal.room.id,
+        description: animal.species.description,
+        photoUrl: animal.species.photoUrl,
+        price: animal.species.price
       };
     });
   }
 
   private retrieveRooms(data) {
-    return data.map(value => {
+    return data.map(room => {
       return {
-        id: value.id,
-        localization: value.localization,
-        locatorsMaxNumber: value.locatorsMaxNumber,
-        surface: value.surface,
-        price: value.price,
-        bought: value.bought,
-        species: value.species,
-        caretakerId: value.caretakerId,
-        enclosureId: value.enclosureId
+        id: room.id,
+        localization: room.localization,
+        locatorsMaxNumber: room.locatorsMaxNumber,
+        surface: room.surface,
+        price: room.price,
+        bought: room.bought,
+        species: room.species,
+        caretakerId: room.caretakerId,
+        enclosureId: room.enclosureId
       };
     });
   }
 
   private retrieveSpecies(data) {
-    return data.map(value => {
+    return data.map(species => {
       return {
-        name: value.name,
-        prestige: value.prestigePoints,
-        description: value.description,
-        photoUrl: value.photoUrl,
-        naturalHabitat: value.naturalHabitat,
-        food: value.food,
-        price: value.price
+        name: species.name,
+        prestige: species.prestigePoints,
+        description: species.description,
+        photoUrl: species.photoUrl,
+        naturalHabitat: species.naturalHabitat,
+        food: species.food,
+        price: species.price
+      };
+    });
+  }
+
+  private retrieveEnclosures(data: any) {
+    return data.map(enclosure => {
+      return {
+        id: enclosure.id,
+        bought: enclosure.bought,
+        localization: enclosure.localization,
+        price: enclosure.price + '$',
+        surface: enclosure.surface,
+        habitat: enclosure.habitat.name,
       };
     });
   }
@@ -85,7 +100,20 @@ export class ConnectorService {
     return this.http.delete(this.SERVICE_URL + 'animals/' + id);
   }
 
+  deleteRooms(id: string) {
+    return this.http.patch(this.SERVICE_URL + 'rooms/' + id + '/destroy', {});
+  }
+
   getRoomsBySpecies(species: string): Observable<object> {
     return this.http.get(this.SERVICE_URL + 'rooms/available/' + species);
   }
+
+  updateCaretaker(roomId: number, caretakerId: number): Observable<object> {
+    return this.http.patch(this.SERVICE_URL + 'rooms/' + roomId + '/caretaker', {caretakerId});
+  }
+
+  updateEnclosure(roomId: number, enclosureId: number): Observable<object> {
+    return this.http.patch(this.SERVICE_URL + 'rooms/' + enclosureId + '/enclosure', {enclosureId});
+  }
+
 }

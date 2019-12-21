@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {DialogDetailsComponent} from './dialog-details.component';
@@ -82,7 +82,7 @@ export class DisplayAnimalsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tableData.sort = this.sort;
+    // this.tableData.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {

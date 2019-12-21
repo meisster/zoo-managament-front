@@ -54,7 +54,10 @@ export class DialogDetailsComponent {
         this.dialogRef.close('success');
       },
       error => {
-        this.dialogRef.close('error');
+        this.dialogRef.close({
+          status: 'error',
+          message: error.error.message
+        });
       });
   }
 
