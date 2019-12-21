@@ -44,7 +44,6 @@ import {SpaceDialogComponent} from './components/space/space-dialog.component';
 import {MyRoomsComponent} from './components/space/my-rooms.component';
 import {RoomsToBuyComponent} from './components/space/rooms-to-buy.component';
 import {BuyRoomComponent} from './components/space/buy-room.component';
-import {DeleteRoomComponent} from './components/space/delete-room.component';
 import {EditCaretakerDialogComponent} from './components/space/edit-caretaker.component';
 import {EditEnclosureDialogComponent} from './components/space/edit-enclosure.component';
 import {DisplayEnclosureComponent} from './components/space/display-enclosure.component';
@@ -67,7 +66,6 @@ import {DisplayEnclosureComponent} from './components/space/display-enclosure.co
     MyRoomsComponent,
     RoomsToBuyComponent,
     BuyRoomComponent,
-    DeleteRoomComponent,
     EditCaretakerDialogComponent,
     EditEnclosureDialogComponent,
     DisplayEnclosureComponent

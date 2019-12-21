@@ -118,7 +118,7 @@ export class MyRoomsComponent {
       if (result === 'success') {
         this._snackBar.open('Room deleted succesfully', 'OK', {duration: 4000});
         setTimeout(() => this.refresh(), 400);
-      } else if (result === 'error') {
+      } else if ((result || '') === 'error') {
         this._snackBar.open('Room can\'t be deleted', 'OK', {duration: 4000});
       }
     });

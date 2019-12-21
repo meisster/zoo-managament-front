@@ -5,18 +5,18 @@ import {ConnectorService} from '../../connector/connector.service';
 @Component({
   selector: 'dialog-overview-example-dialog',
   template: `
-      <h1 mat-dialog-title>{{dialogData.title}}</h1>
-      <div mat-dialog-content>
-          <p>{{dialogData.content}}</p>
-          <modify-item *ngIf="dialogData.animal"
-                       [modifiedItem]="dialogData"
-                       [filterKeys]="['roomId']"
-                       (onSubmit)="onSubmit($event)"></modify-item>
-      </div>
-      <div *ngIf="!dialogData.animal" mat-dialog-actions>
-          <button mat-button [mat-dialog-close]="'success'" (click)="onSubmit(null)">{{dialogData.okClick}}</button>
-          <button mat-button (click)="onNoClick()" cdkFocusInitial>{{dialogData.noClick}}</button>
-      </div>
+    <h1 mat-dialog-title>{{dialogData.title}}</h1>
+    <div mat-dialog-content>
+      <p>{{dialogData.content}}</p>
+      <modify-item *ngIf="dialogData.animal"
+                   [modifiedItem]="dialogData"
+                   [filterKeys]="['roomId']"
+                   (onSubmit)="onSubmit($event)"></modify-item>
+    </div>
+    <div *ngIf="!dialogData.animal" mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="'success'" (click)="onSubmit(null)">{{dialogData.okClick}}</button>
+      <button mat-button (click)="onNoClick()" cdkFocusInitial>{{dialogData.noClick}}</button>
+    </div>
   `,
   providers: [ConnectorService]
 })

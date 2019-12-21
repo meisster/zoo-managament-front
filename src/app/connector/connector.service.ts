@@ -20,9 +20,14 @@ export class ConnectorService {
     return this.http.post(this.SERVICE_URL + endpoint, body);
   }
 
-  public patch(endpoint: any, body: {}): Observable<object> {
+  public patch(endpoint: string, body: {}): Observable<object> {
     console.info('Calling PATCH', this.SERVICE_URL + endpoint);
     return this.http.patch(this.SERVICE_URL + endpoint, body);
+  }
+
+  public delete(endpoint: string): Observable<object> {
+    console.info('Calling DELETE', this.SERVICE_URL + endpoint);
+    return this.http.delete(this.SERVICE_URL + endpoint);
   }
 
   public retrieveData(endpoint: string, data) {
@@ -44,7 +49,6 @@ export class ConnectorService {
         id: animal.id,
         name: animal.name,
         species: animal.species.name,
-        // tslint:disable-next-line:object-literal-sort-keys
         roomId: animal.room.id,
         description: animal.species.description,
         photoUrl: animal.species.photoUrl,
@@ -97,23 +101,29 @@ export class ConnectorService {
   }
 
   sellAnimal(id: string) {
-    return this.http.delete(this.SERVICE_URL + 'animals/' + id);
+    const url = 'animals/' + id;
+    return this.delete(url);
   }
 
   deleteRooms(id: string) {
-    return this.http.patch(this.SERVICE_URL + 'rooms/' + id + '/destroy', {});
+    const url = 'rooms/' + id + '/destroy';
+    return this.patch(url, {});
   }
 
   getRoomsBySpecies(species: string): Observable<object> {
-    return this.http.get(this.SERVICE_URL + 'rooms/available/' + species);
+    const url = 'rooms/available/' + species;
+    return this.get(url);
   }
 
   updateCaretaker(roomId: number, caretakerId: number): Observable<object> {
-    return this.http.patch(this.SERVICE_URL + 'rooms/' + roomId + '/caretaker', {caretakerId});
+    const url = 'rooms/' + roomId + '/caretaker';
+    return this.patch(url, caretakerId);
   }
 
   updateEnclosure(roomId: number, enclosureId: number): Observable<object> {
-    return this.http.patch(this.SERVICE_URL + 'rooms/' + enclosureId + '/enclosure', {enclosureId});
+    const url = 'rooms/' + enclosureId + '/enclosure';
+    return this.patch(url, enclosureId);
+
   }
 
 }

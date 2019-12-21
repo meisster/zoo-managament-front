@@ -5,30 +5,29 @@ import {DataUtilService} from '../../util/data-util.service';
 import {map, startWith} from 'rxjs/operators';
 import {DatabaseData} from '../../util/database-data';
 import {ConnectorService} from '../../connector/connector.service';
-import {element} from 'protractor';
 
 @Component({
   selector: 'modify-item',
   template: `
-      <form class="input-container" [formGroup]="myGroup" (ngSubmit)="onSubmitClicked()">
-          <ng-container *ngFor="let column of columnLabels; let i = index">
-              <mat-form-field color="warn" appearance="outline">
-                  <mat-label>{{column}}</mat-label>
-                  <input matInput name="{{tableKeys[i]}}"
-                         [formControl]="myGroup.controls[tableKeys[i]]"
-                         [formControlName]="tableKeys[i]"
-                         [matAutocomplete]="auto">
-                  <mat-error *ngIf="myGroup.controls[tableKeys[i]]?.invalid" style="font-size: 12px">Fill the required field!</mat-error>
-                  <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions[tableKeys[i]] | async" [value]="option">
-                          {{option}}
-                      </mat-option>
-                  </mat-autocomplete>
-              </mat-form-field>
-          </ng-container>
-          <mat-divider style="margin: 1rem 0"></mat-divider>
-          <button mat-button mat-flat-button>Submit</button>
-      </form>
+    <form class="input-container" [formGroup]="myGroup" (ngSubmit)="onSubmitClicked()">
+      <ng-container *ngFor="let column of columnLabels; let i = index">
+        <mat-form-field color="warn" appearance="outline">
+          <mat-label>{{column}}</mat-label>
+          <input matInput name="{{tableKeys[i]}}"
+                 [formControl]="myGroup.controls[tableKeys[i]]"
+                 [formControlName]="tableKeys[i]"
+                 [matAutocomplete]="auto">
+          <mat-error *ngIf="myGroup.controls[tableKeys[i]]?.invalid" style="font-size: 12px">Fill the required field!</mat-error>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions[tableKeys[i]] | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </ng-container>
+      <mat-divider style="margin: 1rem 0"></mat-divider>
+      <button mat-button mat-flat-button>Submit</button>
+    </form>
   `,
   providers: [ConnectorService]
 })

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {HomePageComponent} from './components/home-page.component';
 import {EditAnimalsComponent} from './components/animals/edit-animals.component';
 import {EditSpaceComponent} from './components/space/edit-space.component';
@@ -8,28 +8,37 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
-    data: {title: 'Welcome to zoo managament app!'}
+    data: {
+      title: 'Welcome to zoo managament app!',
+      animation: 'changePage'
+    },
   },
   {
     path: 'edit/animals',
     component: EditAnimalsComponent,
+    data: {animation: 'changePage'}
   },
   {
     path: 'edit/space',
-    component: EditSpaceComponent
+    component: EditSpaceComponent,
+    data: {animation: 'changePage'}
   },
   {
     path: 'edit/budget',
-    component: HomePageComponent
+    component: HomePageComponent,
+    data: {animation: 'changePage'}
   },
   {
     path: 'edit/workers',
-    component: HomePageComponent
+    component: HomePageComponent,
+    data: {animation: 'changePage'}
   },
   {
     path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: {animation: 'changePage'}
+
   }
 ];
 
@@ -37,4 +46,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

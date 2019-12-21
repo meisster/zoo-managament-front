@@ -94,7 +94,7 @@ export class RoomsToBuyComponent {
       if (result === 'success') {
         this._snackBar.open('Room bought succesfully', 'OK', {duration: 4000});
         setTimeout(() => this.acquireData(), 400);
-      } else if (result.status === 'error') {
+      } else if ((result.status || '') === 'error') {
         this._snackBar.open('Can\'t buy this room: ' + result.message, 'OK', {duration: 4000});
       }
     });
