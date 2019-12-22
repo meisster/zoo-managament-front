@@ -9,7 +9,7 @@ import {DatabaseData} from '../../util/database-data';
   template: `
     <div class="content-wrapper">
       <mat-grid-list cols="1" rowHeight="40px">
-        <mat-grid-tile style="font-size: 20px">{{ ('space').toLocaleUpperCase() }}</mat-grid-tile>
+        <mat-grid-tile style="font-size: 20px">{{ ('workers').toLocaleUpperCase() }}</mat-grid-tile>
         <spinner [showSpinner]="showSpinner"></spinner>
       </mat-grid-list>
       <mat-divider style="margin: 10px 0;"></mat-divider>
@@ -18,6 +18,7 @@ import {DatabaseData} from '../../util/database-data';
           <display-caretakers></display-caretakers>
         </mat-tab>
         <mat-tab label="{{ cardName(1) }}">
+          <display-entertainers></display-entertainers>
         </mat-tab>
       </mat-tab-group>
     </div>

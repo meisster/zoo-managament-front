@@ -33,7 +33,7 @@ export class DatabaseData {
   public static enclosuresColumnNames: string[] = ['ID', 'Bought', 'Localization', 'Price', 'Surface', 'Habitat'];
   public static caretakersColumnKeys: string[] = ['id', 'firstName', 'lastName', 'roomMaxNumber', 'contractId'];
   public static caretakersColumnNames: string[] = ['ID', 'First Name', 'Last Name', 'Room capacity', 'Contract'];
-  public static entertainersColumnKeys: string[] = ['id', 'firstName', 'name', 'contract_id'];
+  public static entertainersColumnKeys: string[] = ['id', 'firstName', 'lastName', 'contractId'];
   public static entertainersColumnNames: string[] = ['ID', 'First Name', 'Last Name', 'Contract'];
 
   public static dialogData(data): { [endpoint: string]: { [method: string]: { [key: string]: string } } } {

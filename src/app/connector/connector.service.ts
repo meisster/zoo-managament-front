@@ -118,12 +118,13 @@ export class ConnectorService {
   }
 
   private retrieveEntertainers(data: any) {
-    return data.map(caretaker => {
+    return data.map(entertainer => {
       return {
-        id: caretaker.id,
-        firstName: caretaker.firstName,
-        lastName: caretaker.name,
-        contract: caretaker.contract
+        id: entertainer.id,
+        firstName: entertainer.firstName,
+        lastName: entertainer.name,
+        contract: entertainer.contract,
+        contractId: entertainer.contract.id
       };
     });
   }
@@ -161,6 +162,16 @@ export class ConnectorService {
 
   fireCaretaker(id: number) {
     const url = 'caretakers/' + id;
+    return this.delete(url);
+  }
+
+  createEntertainer(entertainerData: { [key: string]: string }) {
+    const url = 'entertainers';
+    return this.post(url, entertainerData);
+  }
+
+  fireEntertainer(id: number) {
+    const url = 'entertainers/' + id;
     return this.delete(url);
   }
 }

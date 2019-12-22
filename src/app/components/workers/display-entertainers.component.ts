@@ -3,11 +3,11 @@ import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/mate
 import {ConnectorService} from '../../connector/connector.service';
 import {DatabaseData} from '../../util/database-data';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {CaretakersDialogComponent} from './caretakers-dialog.component';
 import {SpaceDialogComponent} from '../space/space-dialog.component';
+import {EntertainersDialogComponent} from './entertainers-dialog.component';
 
 @Component({
-  selector: 'display-caretakers',
+  selector: 'display-entertainers',
   template: `
     <mat-form-field color="warn" appearance="outline">
       <mat-icon matSuffix>search</mat-icon>
@@ -15,11 +15,11 @@ import {SpaceDialogComponent} from '../space/space-dialog.component';
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter items...">
     </mat-form-field>
     <div style="display: flex">
-      <button mat-button style="margin: auto auto 16px;" (click)="addCaretakerDialog()">
+      <button mat-button style="margin: auto auto 16px;" (click)="addEntertainerDialog()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
-    <table mat-table [dataSource]="caretakersData" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="entertainersData" matSort multiTemplateDataRows class="mat-elevation-z8">
       <ng-container matColumnDef="{{ key }}" *ngFor="let key of tableKeys; let i = index;">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnLabels[i] }} </th>
         <td mat-cell *matCellDef="let element">{{element[key]}}</td>
@@ -39,7 +39,7 @@ import {SpaceDialogComponent} from '../space/space-dialog.component';
                 class="element-description-attribution">{{ element.contract.signingDate | date}}</span><br>
                                   </span>
               <div class="manage-buttons">
-                <button mat-flat-button (click)="fireCaretaker(element)" matTooltip="Fire caretaker">
+                <button mat-flat-button (click)="fireEntertainer(element)" matTooltip="Fire caretaker">
                   <mat-icon>remove_circle_outline</mat-icon>
                 </button>
               </div>
@@ -64,24 +64,24 @@ import {SpaceDialogComponent} from '../space/space-dialog.component';
     ]),
   ],
 })
-export class DisplayCaretakersComponent {
+export class DisplayEntertainersComponent {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  private caretakersData;
+  private entertainersData;
   private tableKeys: string[] = [];
   private columnLabels: string[] = [];
   expandedElement: any;
 
   constructor(public dialog: MatDialog, private connector: ConnectorService, private _snackBar: MatSnackBar) {
-    this.tableKeys = DatabaseData.caretakersColumnKeys;
-    this.columnLabels = DatabaseData.caretakersColumnNames;
+    this.tableKeys = DatabaseData.entertainersColumnKeys;
+    this.columnLabels = DatabaseData.entertainersColumnNames;
     this.acquireData();
   }
 
   private acquireData(): void {
-    this.connector.get('caretakers').subscribe(response => {
-        const parsedEnclosures = this.connector.retrieveData('caretakers', response);
-        this.caretakersData = new MatTableDataSource(parsedEnclosures);
-        this.caretakersData.sort = this.sort;
+    this.connector.get('entertainers').subscribe(response => {
+        const parsedEnclosures = this.connector.retrieveData('entertainers', response);
+        this.entertainersData = new MatTableDataSource(parsedEnclosures);
+        this.entertainersData.sort = this.sort;
       },
       error => {
         this._snackBar.open('Server unreachable!', 'OK', {duration: 4000});
@@ -89,27 +89,27 @@ export class DisplayCaretakersComponent {
   }
 
   applyFilter(filterValue: string) {
-    this.caretakersData.filter = filterValue.trim().toLowerCase();
+    this.entertainersData.filter = filterValue.trim().toLowerCase();
   }
 
-  addCaretakerDialog() {
-    const dialogRef = this.dialog.open(CaretakersDialogComponent, {
+  addEntertainerDialog() {
+    const dialogRef = this.dialog.open(EntertainersDialogComponent, {
       width: '400px',
       data: {
-        title: 'Hire a caretaker',
+        title: 'Hire an entertainer',
         content: 'Please fill in  required information',
-        endpoint: 'caretakers'
+        endpoint: 'entertainer'
       }
     });
     dialogRef.afterClosed().subscribe(caretakerData => {
       if (caretakerData) {
-        this.addCaretaker(caretakerData);
+        this.addEntertainer(caretakerData);
       }
     });
   }
 
-  addCaretaker(caretakerData: { [key: string]: string }) {
-    this.connector.createCaretaker(caretakerData).subscribe(
+  addEntertainer(entertainerData: { [key: string]: string }) {
+    this.connector.createEntertainer(entertainerData).subscribe(
       success => {
         this._snackBar.open('Caretaker hired successfully', 'OK', {duration: 4000});
         setTimeout(() => this.acquireData(), 400);
@@ -119,24 +119,24 @@ export class DisplayCaretakersComponent {
     );
   }
 
-  fireCaretaker(element: any) {
+  fireEntertainer(element: any) {
     const dialogRef = this.dialog.open(SpaceDialogComponent, {
       width: '400px',
       data: {
-        title: 'Fire caretaker',
-        content: 'Are you sure you want to fire this caretaker?',
-        caretaker: element,
-        endpoint: 'caretakers',
+        title: 'Fire entertainer',
+        content: 'Are you sure you want to fire this entertainer?',
+        entertainer: element,
+        endpoint: 'entertainers',
         okClick: 'Yes',
         noClick: 'Cancel'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'success') {
-        this._snackBar.open('Caretaker fired successfully', 'OK', {duration: 4000});
+        this._snackBar.open('Entertainer fired successfully', 'OK', {duration: 4000});
         setTimeout(() => this.acquireData(), 400);
       } else if (result.status === 'error') {
-        this._snackBar.open('Can\'t fire this caretaker: ' + result.message, 'OK', {duration: 4000});
+        this._snackBar.open('Can\'t fire this entertainer: ' + result.message, 'OK', {duration: 4000});
       }
     });
   }

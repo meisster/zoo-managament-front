@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'display-space',
   template: `
-    <p-accordion>
+    <p-accordion [multiple]="true">
       <p-accordionTab header="My rooms" [selected]="true">
         <my-rooms></my-rooms>
       </p-accordionTab>

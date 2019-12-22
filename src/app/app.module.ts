@@ -50,6 +50,9 @@ import {DisplayEnclosureComponent} from './components/space/display-enclosure.co
 import {EditWorkersComponent} from './components/workers/edit-workers.component';
 import {DisplayCaretakersComponent} from './components/workers/display-caretakers.component';
 import {CaretakersDialogComponent} from './components/workers/caretakers-dialog.component';
+import {DisplayEntertainersComponent} from './components/workers/display-entertainers.component';
+import {EntertainersDialogComponent} from './components/workers/entertainers-dialog.component';
+import {EditBudgetComponent} from './components/budget/edit-budget.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import {CaretakersDialogComponent} from './components/workers/caretakers-dialog.
     DisplayEnclosureComponent,
     EditWorkersComponent,
     DisplayCaretakersComponent,
-    CaretakersDialogComponent
+    CaretakersDialogComponent,
+    DisplayEntertainersComponent,
+    EntertainersDialogComponent,
+    EditBudgetComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +111,7 @@ import {CaretakersDialogComponent} from './components/workers/caretakers-dialog.
   // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [
     DialogDetailsComponent, SpaceDialogComponent, EditCaretakerDialogComponent, EditEnclosureDialogComponent,
-    CaretakersDialogComponent
+    CaretakersDialogComponent, EntertainersDialogComponent
   ],
   providers: [ConnectorService, DataUtilService, MatSnackBar],
   bootstrap: [AppComponent]

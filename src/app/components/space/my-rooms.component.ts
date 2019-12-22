@@ -31,7 +31,7 @@ import {EditEnclosureDialogComponent} from './edit-enclosure.component';
                                       <div class="element-description-row">
                                           <p>Caretaker ID: </p><span
                                         class="element-description-attribution"> {{ element.caretakerId }}</span>
-                                          <button mat-flat-button (click)="editCaretaker(element)" matTooltip="Edit caretaker">
+                                          <button *ngIf="!element.caretakerId" mat-flat-button (click)="editCaretaker(element)" matTooltip="Edit caretaker">
                                               <mat-icon>edit</mat-icon>
                                           </button>
                                       </div>
@@ -125,6 +125,7 @@ export class MyRoomsComponent {
   }
 
   editCaretaker(room: any) {
+    console.log(room)
     const dialogRef = this.dialog.open(EditCaretakerDialogComponent, {
       width: '400px',
       data: {

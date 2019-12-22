@@ -91,6 +91,18 @@ export class SpaceDialogComponent {
       });
   }
 
+  private fireEntertainer() {
+    this.connector.fireEntertainer(this.dialogData.entertainer.id).subscribe(response => {
+        this.dialogRef.close('success');
+      },
+      error => {
+        this.dialogRef.close({
+          status: 'error',
+          message: error.error.message || error.message
+        });
+      });
+  }
+
   onSubmit(data) {
     switch (this.dialogData.title) {
       case 'Edit caretaker':
@@ -110,6 +122,9 @@ export class SpaceDialogComponent {
         break;
       case 'Fire caretaker':
         this.fireCaretaker();
+        break;
+      case 'Fire entertainer':
+        this.fireEntertainer();
         break;
     }
   }
