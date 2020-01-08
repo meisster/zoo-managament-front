@@ -9,7 +9,7 @@ import {DatabaseData} from '../../util/database-data';
   template: `
     <div class="content-wrapper">
       <mat-grid-list cols="1" rowHeight="40px">
-        <mat-grid-tile style="font-size: 20px">{{ ('Displaying animals').toLocaleUpperCase() }}</mat-grid-tile>
+        <mat-grid-tile style="font-size: 20px"><h1>Animals</h1></mat-grid-tile>
         <spinner [showSpinner]="showSpinner"></spinner>
       </mat-grid-list>
       <mat-divider style="margin: 10px 0;"></mat-divider>

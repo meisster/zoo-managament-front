@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomePageComponent} from './components/home-page.component';
 import {EditAnimalsComponent} from './components/animals/edit-animals.component';
 import {EditSpaceComponent} from './components/space/edit-space.component';
 import {EditWorkersComponent} from './components/workers/edit-workers.component';
+import {EditBudgetComponent} from './components/budget/edit-budget.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomePageComponent,
+    component: EditBudgetComponent,
     data: {
       title: 'Welcome to zoo managament app!',
       animation: 'changePage'
@@ -22,11 +22,6 @@ const routes: Routes = [
   {
     path: 'edit/space',
     component: EditSpaceComponent,
-    data: {animation: 'changePage'}
-  },
-  {
-    path: 'edit/budget',
-    component: HomePageComponent,
     data: {animation: 'changePage'}
   },
   {

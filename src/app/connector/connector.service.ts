@@ -174,4 +174,16 @@ export class ConnectorService {
     const url = 'entertainers/' + id;
     return this.delete(url);
   }
+
+  nextRound(): Observable<any> {
+    return this.post('next', {});
+  }
+
+  refresh(): Observable<any> {
+    return this.get('budgets');
+  }
+
+  startNewGame(): Observable<any> {
+    return this.get('newGame');
+  }
 }

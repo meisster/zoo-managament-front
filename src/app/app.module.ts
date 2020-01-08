@@ -14,7 +14,9 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatMenuModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
@@ -106,7 +108,9 @@ import {EditBudgetComponent} from './components/budget/edit-budget.component';
     MatDividerModule,
     AccordionModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule,
+    MatProgressBarModule
   ],
   // tslint:disable-next-line:object-literal-sort-keys
   entryComponents: [

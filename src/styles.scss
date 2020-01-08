@@ -11,7 +11,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$zoo-managament-front-primary: mat-palette($mat-light-green, 900);//mat-palette($mat-blue-gray);
+$zoo-managament-front-primary: mat-palette($mat-light-green, 900); //mat-palette($mat-blue-gray);
 $zoo-managament-front-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -32,6 +32,13 @@ $zoo-managament-front-theme: mat-dark-theme($zoo-managament-front-primary, $zoo-
 @import "styles/content-wrapper.scss";
 @import "styles/adding-component.scss";
 
+html, body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: white}
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+  color: white
+}
